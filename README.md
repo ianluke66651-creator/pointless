@@ -6,13 +6,12 @@
 
 
 ## Basic Details
-### Team Name: [Name]
+### Team Name: Pointless
 
 
 ### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+- Team Lead: Agnivesh Manohar - College of Engineering, Perumon 
+- Member 2: Ian Luke - College of Engineering, Perumon
 
 ### Project Description
 [2-3 lines about what your project does]
