@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ChatLens — Choose Yourself
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            C
+        </div>
+
+        <span>
+            ChatLens
+        </span>
+
+    </div>
+
+
+    <div class="nav-badge">
+        Speaker Detection
+    </div>
+
+</header>
+
+
+
+<main class="results-page">
+
+
+<section class="results-heading">
+
+    <div class="hero-badge">
+        ✦ Messages Extracted
+    </div>
+
+
+    <h1>
+        Which person are you?
+    </h1>
+
+
+    <p>
+        We detected these participants.
+        Select yourself so we can calculate
+        the conversation balance correctly.
+    </p>
+
+</section>
+
+
+
+<section class="choice-card">
+
+
+    {% if error %}
+
+    <div class="error-message">
+        ⚠️ {{ error }}
+    </div>
+
+    {% endif %}
+
+
+
+    <form
+        method="POST"
+        action="{{ url_for('choose_user') }}"
+    >
+
+
+        <h3>
+            Detected participants
+        </h3>
+
+
+        <div class="participants">
+
+
+            {% for participant in participants %}
+
+            <label class="participant">
+
+                <input
+                    type="radio"
+                    name="user_sender"
+                    value="{{ participant }}"
+                    required
+                >
+
+
+                <span class="radio">
+                </span>
+
+
+                <span>
+                    {{ participant }}
+                </span>
+
+            </label>
+
+            {% endfor %}
+
+
+        </div>
+
+
+
+        <div class="preview">
+
+
+            <h3>
+                Extracted conversation
+            </h3>
+
+
+            {% for message in messages %}
+
+            <div class="preview-message">
+
+
+                <div>
+
+                    <strong>
+                        {{ message.sender }}
+                    </strong>
+
+
+                    {% if message.timestamp %}
+
+                    <small>
+                        {{ message.timestamp }}
+                    </small>
+
+                    {% endif %}
+
+                </div>
+
+
+                <p>
+                    {{ message.text }}
+                </p>
+
+
+            </div>
+
+            {% endfor %}
+
+
+        </div>
+
+
+
+        <button
+            class="analyze-button"
+            type="submit"
+        >
+
+            Continue to Analysis
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+
+    </form>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    ChatLens © 2026
+
+</footer>
+
+
+</body>
+
+</html>

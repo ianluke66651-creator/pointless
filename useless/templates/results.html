@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ChatLens — Results
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            C
+        </div>
+
+        <span>
+            ChatLens
+        </span>
+
+    </div>
+
+
+    <div class="nav-badge">
+        Analysis Complete
+    </div>
+
+</header>
+
+
+
+<main class="results-page">
+
+
+<section class="results-heading">
+
+    <div class="hero-badge">
+        ✦ Investigation Complete
+    </div>
+
+
+    <h1>
+        Here's what we found.
+    </h1>
+
+
+    <p>
+
+        You are identified as:
+
+        <strong>
+            {{ results.user_sender }}
+        </strong>
+
+    </p>
+
+</section>
+
+
+
+<!-- SCORE -->
+
+<section class="score-card">
+
+
+    <div class="score-left">
+
+        <div class="score-label">
+            IGNORING SCORE
+        </div>
+
+
+        <div class="score-number">
+
+            {{ results.score }}
+
+            <span>
+                %
+            </span>
+
+        </div>
+
+
+        <div class="score-status">
+
+            {{ results.status }}
+
+        </div>
+
+    </div>
+
+
+
+    <div
+        class="score-circle"
+        style="--score: {{ results.score }}%;"
+    >
+
+        <div class="circle-inner">
+
+            <strong>
+                {{ results.score }}%
+            </strong>
+
+            <span>
+                Suspicion
+            </span>
+
+        </div>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- STATISTICS -->
+
+<section class="stats-grid">
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            💬
+        </div>
+
+        <span>
+            Total Messages
+        </span>
+
+        <strong>
+            {{ results.message_count }}
+        </strong>
+
+    </div>
+
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            👤
+        </div>
+
+        <span>
+            Your Messages
+        </span>
+
+        <strong>
+            {{ results.user_messages }}
+        </strong>
+
+    </div>
+
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            👥
+        </div>
+
+        <span>
+            Their Messages
+        </span>
+
+        <strong>
+            {{ results.other_messages }}
+        </strong>
+
+    </div>
+
+
+
+    <div class="stat-card">
+
+        <div class="stat-icon">
+            👀
+        </div>
+
+        <span>
+            Unanswered Sequences
+        </span>
+
+        <strong>
+            {{ results.unanswered }}
+        </strong>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- VERDICT -->
+
+<section class="verdict-card">
+
+    <div class="verdict-icon">
+        ⚖️
+    </div>
+
+    <div>
+
+        <span class="verdict-label">
+            ANALYSIS SUMMARY
+        </span>
+
+        <h2>
+            {{ results.verdict }}
+        </h2>
+
+    </div>
+
+</section>
+
+
+
+<!-- SITUATION ASSESSMENT -->
+
+{% if results.situation.has_conflict or results.situation.mood_assessment or results.situation.communication_issue %}
+
+<section class="situation-analysis">
+
+    <h3>📊 Conversation Assessment</h3>
+
+    {% if results.situation.mood_assessment %}
+    <div class="situation-item mood">
+        <strong>Mood & Engagement:</strong> {{ results.situation.mood_assessment }}
+    </div>
+    {% endif %}
+
+    {% if results.situation.communication_issue %}
+    <div class="situation-item conflict">
+        <strong>Communication Issue:</strong> {{ results.situation.communication_issue }}
+    </div>
+    {% endif %}
+
+    {% if results.situation.has_conflict %}
+    <div class="situation-item conflict">
+        <strong>⚠️ Conflict Indicators Detected</strong>
+        {% if results.situation.who_at_fault %}
+        <p style="margin-top: 8px;">{{ results.situation.who_at_fault }}</p>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    {% if results.situation.insights %}
+    <div style="margin-top: 16px;">
+        <strong>Key Insights:</strong>
+        {% for insight in results.situation.insights %}
+        <div class="situation-item insight">
+            • {{ insight }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</section>
+
+{% endif %}
+
+
+
+<!-- EXTRA INFO -->
+
+<section class="analysis-info">
+
+
+    <div>
+
+        <span>
+            Average Message Length
+        </span>
+
+
+        <strong>
+            {{ results.avg_length }} words
+        </strong>
+
+    </div>
+
+
+
+    <div>
+
+        <span>
+            Other Participant(s)
+        </span>
+
+
+        <strong>
+
+            {% if results.other_senders %}
+
+                {{ results.other_senders|join(", ") }}
+
+            {% else %}
+
+                None detected
+
+            {% endif %}
+
+        </strong>
+
+    </div>
+
+
+</section>
+
+
+
+<!-- EXTRACTED CHAT -->
+
+<section class="preview results-conversation">
+
+
+    <h3>
+        Extracted Conversation
+    </h3>
+
+
+    {% for message in results.messages %}
+
+    <div class="preview-message">
+
+
+        <strong>
+            {{ message.sender }}
+        </strong>
+
+
+        {% if message.timestamp %}
+
+        <small>
+            {{ message.timestamp }}
+        </small>
+
+        {% endif %}
+
+
+        <p>
+            {{ message.text }}
+        </p>
+
+
+    </div>
+
+    {% endfor %}
+
+
+</section>
+
+
+
+<div class="action-area">
+
+    <a
+        href="{{ url_for('home') }}"
+        class="secondary-button"
+    >
+
+        ← Analyze Another Chat
+
+    </a>
+
+</div>
+
+
+
+<p class="disclaimer">
+
+    ChatLens analyzes communication patterns in conversations. This analysis is based on 
+    message frequency, response times, and engagement metrics. It cannot determine someone's 
+    actual feelings or intentions. Always consider context and have a direct conversation 
+    if you have concerns about a relationship.
+
+</p>
+
+
+</main>
+
+
+
+<footer>
+
+    ChatLens © 2026
+
+</footer>
+
+
+</body>
+
+</html>

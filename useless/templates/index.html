@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        ChatLens — Conversation Analyzer
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+
+</head>
+
+
+<body>
+
+
+<header class="navbar">
+
+    <div class="brand">
+
+        <div class="brand-icon">
+            C
+        </div>
+
+        <span>
+            ChatLens
+        </span>
+
+    </div>
+
+
+    <div class="nav-badge">
+        Local Conversation Analyzer
+    </div>
+
+</header>
+
+
+
+<main>
+
+
+<section class="hero">
+
+    <div class="hero-badge">
+        ✦ Conversation Intelligence
+    </div>
+
+
+    <h1>
+
+        Are you being
+        <span>ignored?</span>
+
+    </h1>
+
+
+    <p>
+
+        Analyze conversations from chat exports
+        or pasted messages.
+
+        English, Manglish and mixed-language
+        conversations are supported.
+
+    </p>
+
+</section>
+
+
+
+<section class="analyzer-card">
+
+
+    <div class="card-header">
+
+        <div>
+
+            <h2>
+                Analyze your conversation
+            </h2>
+
+            <p>
+                No API key required. Processing happens locally.
+            </p>
+
+        </div>
+
+
+        <div class="shield">
+            🔒
+        </div>
+
+    </div>
+
+
+
+    {% if error %}
+
+    <div class="error-message">
+
+        ⚠️ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+
+    <form
+        action="{{ url_for('analyze') }}"
+        method="POST"
+        enctype="multipart/form-data"
+    >
+
+
+
+
+
+
+        <!-- TEXT EXPORT -->
+
+        <div class="upload-section">
+
+            <div class="section-title">
+
+                <div class="section-icon">
+                    📄
+                </div>
+
+                <div>
+
+                    <h3>
+                        Upload chat export
+                    </h3>
+
+                    <p>
+                        Works especially well with WhatsApp .txt exports
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <label
+                class="text-upload"
+                for="chat_file"
+            >
+
+                <input
+                    type="file"
+                    id="chat_file"
+                    name="chat_file"
+                    accept=".txt"
+                >
+
+                📄 Choose .txt file
+
+            </label>
+
+
+            <div
+                id="textFileName"
+                class="file-list"
+            ></div>
+
+        </div>
+
+
+
+        <div class="divider">
+            OR
+        </div>
+
+
+
+        <!-- PASTE -->
+
+        <div class="upload-section">
+
+            <div class="section-title">
+
+                <div class="section-icon">
+                    💬
+                </div>
+
+                <div>
+
+                    <h3>
+                        Paste conversation
+                    </h3>
+
+                    <p>
+                        Sender names will be detected automatically
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <textarea
+                id="chat"
+                name="chat"
+                placeholder="[5/14, 7:32 PM] 𝐀𝐠𝐧𝐢𝐯𝐞𝐬𝐡: Ni cheyninda
+
+[5/14, 7:32 PM] Nadiya CEP: Cheyyande pinna
+
+[5/14, 7:32 PM] 𝐀𝐠𝐧𝐢𝐯𝐞𝐬𝐡: NJN kochi internship cheyan noknind
+
+[5/14, 7:33 PM] Nadiya CEP: Evda indeda
+
+[5/14, 7:33 PM] Nadiya CEP: Nalla company ano? Also rate ethra avm
+
+[5/14, 7:33 PM] 𝐀𝐠𝐧𝐢𝐯𝐞𝐬𝐡: Kittiyillla ithvre nokit
+
+[5/14, 7:33 PM] Nadiya CEP: Ahno"
+            ></textarea>
+
+        </div>
+
+
+
+        <div class="format-hint">
+
+            💡
+
+            <span>
+                After extraction, ChatLens will ask you
+                which detected participant is you.
+            </span>
+
+        </div>
+
+
+
+        <button
+            class="analyze-button"
+            type="submit"
+            id="analyzeButton"
+        >
+
+            Analyze Conversation
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+
+    </form>
+
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+    ChatLens © 2026 · Local conversation analysis
+
+</footer>
+
+
+
+<script>
+
+
+const textInput =
+    document.getElementById(
+        "chat_file"
+    );
+
+
+const textFileName =
+    document.getElementById(
+        "textFileName"
+    );
+
+
+textInput.addEventListener(
+    "change",
+    function () {
+
+        textFileName.innerHTML = "";
+
+
+        if (
+            textInput.files.length
+            ===
+            0
+        ) {
+
+            return;
+
+        }
+
+
+        const item =
+            document.createElement(
+                "div"
+            );
+
+
+        item.className =
+            "file-item";
+
+
+        item.textContent =
+            "📄 "
+            +
+            textInput.files[0].name;
+
+
+        textFileName.appendChild(
+            item
+        );
+
+    }
+);
+
+
+
+const form =
+    document.querySelector(
+        "form"
+    );
+
+
+const button =
+    document.getElementById(
+        "analyzeButton"
+    );
+
+
+form.addEventListener(
+    "submit",
+    function () {
+
+        button.disabled = true;
+
+        button.innerHTML =
+            "Analyzing... ⏳";
+
+    }
+);
+
+
+</script>
+
+
+</body>
+
+</html>
