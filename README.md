@@ -181,15 +181,14 @@ The application follows a simple workflow:
 *ChatLens input interface where users can paste a conversation or upload a chat export for analysis.*
 
 ### Screenshot 2 — Participant Selection
-
-Show the participant selection section after a chat has been processed.
+<img width="1312" height="540" alt="image" src="https://github.com/user-attachments/assets/a7b0ca19-7f02-4396-afa8-9cb0b36aa909" />
 
 **Caption:**
 *The participant selection interface allows the user to identify themselves before analysis.*
 
 ### Screenshot 3 — Analysis Results
 
-Show the final score, verdict, statistics, and insights.
+<img width="785" height="780" alt="image" src="https://github.com/user-attachments/assets/1ed26fa4-b501-49b3-9bf9-dc5f138c30a5" />
 
 **Caption:**
 *ChatLens analysis dashboard displaying the Ignoring Score, verdict, chat statistics, and communication insights.*
