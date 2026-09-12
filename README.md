@@ -2,7 +2,7 @@
 
 
 
-# [Project Name] 🎯
+# Am I being Ignored? 🎯
 
 
 ## Basic Details
@@ -13,35 +13,42 @@
 - Team Lead: Agnivesh Manohar - College of Engineering, Perumon 
 - Member 2: Ian Luke - College of Engineering, Perumon
 
-### Project Description
-[2-3 lines about what your project does]
+Project Description
 
-### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+ChatLens is a fun AI-powered conversation analyzer that examines chats to determine whether someone is actually ignoring you. It analyzes message patterns, unanswered texts, conversation balance, and response behaviour to generate an Ignoring Score and a humorous final verdict.
 
-### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+The Problem (that doesn't exist)
 
-## Technical Details
-### Technologies/Components Used
+People are constantly worried about one of life's most unnecessary questions: “Why haven't they replied?” Instead of simply waiting, overthinking, or touching grass, ChatLens solves the completely imaginary problem of scientifically determining whether you are being ignored.
+
+The Solution (that nobody asked for)
+
+ChatLens turns ordinary chat drama into a full investigation. Users paste their conversation, and the system analyzes the evidence, calculates an Ignoring Score, and delivers a professional-looking verdict — because apparently, we now need AI to tell us “Bro, they probably don't want to reply.” 💀
+
+Technical Details
+Technologies/Components Used
+
 For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+
+Languages used: Python, HTML, CSS, JavaScript
+Frameworks used: Flask
+Libraries used: Flask, Python re (Regular Expressions)
+Tools used: Visual Studio Code, Python, Web Browser, Git/GitHub (if used for version control)
 
 For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
 
+Main components: No dedicated hardware required
+Specifications: Any standard laptop/desktop capable of running Python and Flask
+Tools required: Laptop/Desktop, keyboard, mouse, and internet connection for development
+
+Note: ChatLens is currently a software-only project, so no external sensors, microcontrollers, or hardware components are required.
 ### Implementation
 For Software:
 # Installation
-[commands]
+pip install flask
 
 # Run
-[commands]
+python app.py
 
 ### Project Documentation
 For Software:
